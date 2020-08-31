@@ -6,7 +6,8 @@ const host = 'https://demo-oce0002.cec.ocp.oraclecloud.com/'
 /* Define front-end properties - End */
 
 const itemsURL = ({ maxResults, sortOrder }) =>
-  `${host}/content/published/api/v1.1/items?orderBy=${esc(sortOrder)}&limit=${maxResults}&channelToken=${token}&q=(type eq "Story" AND taxonomies.categories.name eq "${taxonomyCatName}")`
+  `${host}/content/published/api/v1.1/items?orderBy=${esc(sortOrder)}&limit=${maxResults}&
+  channelToken=${token}&q=(type eq "Story" AND taxonomies.categories.name eq "${taxonomyCatName}")`
 
 const esc = encodeURIComponent
 
