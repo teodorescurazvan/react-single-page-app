@@ -1,5 +1,5 @@
 {
-  "name": "hol-headless-react-front",
+  "name": "react-single-page-app",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI= react-scripts build",
     "format": "prettier-standard 'src/**/*.js' && prettier-standard 'src/**/*.jsx'",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
