@@ -29,14 +29,7 @@ const Body = () => (
     <div className='w3-content' style={{ maxWidth: '1400px' }}>
       <Header />
       <div className='w3-row'>
-        <div className='w3-col l8 s12'>
           <Blogs />
-        </div>
-        <div className='w3-col l4'>
-          <AboutCard />
-          <hr />
-          <PopularPosts />
-        </div>
       </div>
       <br />
     </div>
@@ -45,10 +38,8 @@ const Body = () => (
 )
 
 const Header = () => (
-  <header className='w3-container w3-center w3-padding-32'>
-    <h1>
-      <b>Real Madrid Fans Area</b>
-    </h1>
+  <header className='w3-container w3-padding-32'>
+    <Banner />
   </header>
 )
 
@@ -63,7 +54,7 @@ const Footer = () => (
   </footer>
 )
 
-const AboutCard = () => (
+/* const AboutCard = () => (
   <div className='w3-card w3-margin w3-margin-top'>
     <img src='/w3images/supporter_club.jpg' style={w100pct} alt="supporter club" />
     <div className='w3-container w3-white'>
@@ -77,9 +68,9 @@ const AboutCard = () => (
       </p>
     </div>
   </div>
-)
+) */
 
-const PopularPosts = () => (
+/* const PopularPosts = () => (
   <div className='w3-card w3-margin'>
     <div className='w3-container w3-padding'>
       <h4>Popular Posts</h4>
@@ -111,7 +102,7 @@ const PopularPosts = () => (
       </li>
     </ul>
   </div>
-)
+) */
 
 class Blogs extends Component {
   constructor (props) {
@@ -119,8 +110,7 @@ class Blogs extends Component {
     this.state = { items: [] }
   }
   componentDidMount () {
-    items()
-      .then(data => {
+    items().then(data => {
         console.log(data)
         
         const blogs = data.ALL.items.filter(
@@ -133,6 +123,38 @@ class Blogs extends Component {
         console.error(err)
         this.setState({ err: err.toString() })
       })
+  }
+  render () {
+    const child = this.state.err ? (
+      <ErrorComponent err={this.state.err} />
+    ) : this.state.items.length === 0 ? (
+      <NoItems />
+    ) : (
+      <List items={this.state.items} />
+    )
+    return child
+  }
+}
+
+class Banner extends Component {
+  constructor (props) {
+    super(props)
+    this.state = { items: [] }
+  }
+  componentDidMount() {
+    items().then(data => {
+      console.log(data)
+      
+      const banner = data.ALL.items.filter(
+        item => item.type === 'Match-Hero-Header'
+      )
+      const items = data.items
+      this.setState({ items:items })
+    })
+    .catch(err => {
+      console.error(err)
+      this.setState({ err: err.toString() })
+    })
   }
   render () {
     const child = this.state.err ? (
@@ -172,14 +194,15 @@ const Blog = ({ item }) => {
     author,
     body,
     media,
-    publishDate
+    publishDate,
+    subtitle
   } = fields
-  const content = { __html: body } // to be used with dangerouslySetInnerHTML
+  // const content = { __html: body } // to be used with dangerouslySetInnerHTML
   const image = toHref(media)
   const date = dateToMDY( publishDate)
 
   return (
-    <div className='w3-card-4 w3-margin w3-white'>
+    <div className='w3-col l4 m6 s12 w3-margin w3-white' style={{ maxWidth: '430px' }}>
       <img src={image} alt={item.name} style={w100pct} />
       <div className='w3-container'>
         <h3>
@@ -190,18 +213,7 @@ const Blog = ({ item }) => {
         </h5>
       </div>
 
-      <div className='w3-container'>
-        <p dangerouslySetInnerHTML={content} />
-        <div className='w3-row'>
-          <div className='w3-col m8 s12'>
-            <p>
-              <button className='w3-button w3-padding-large w3-white w3-border'>
-                <b>READ MORE »</b>
-              </button>
-            </p>
-          </div>
-        </div>
-      </div>
+      <div className='w3-container'><p>{subtitle}</p></div>
     </div>
   )
 }

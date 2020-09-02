@@ -8,7 +8,7 @@ const host = 'https://demo-oce0002.cec.ocp.oraclecloud.com/'
 const itemsURL = ({ maxResults, sortOrder }) =>
   `${host}/content/published/api/v1.1/items?orderBy=${esc(sortOrder)}&limit=${maxResults}&channelToken=${token}&q=(type eq "Story" OR type eq "Match-Hero-Header" AND taxonomies.categories.name eq "${taxonomyCatName}")`
 
-  const esc = encodeURIComponent
+const esc = encodeURIComponent
 
 const noDigitalAssets = e => e.type !== 'DigitalAsset'
 
