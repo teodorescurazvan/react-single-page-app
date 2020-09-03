@@ -111,6 +111,7 @@ const dateToMDY = date =>
     day: 'numeric'
   })
 
+// definition for Blog component
 const Blog = ({ item }) => {
   const { fields } = item
   const {
@@ -140,6 +141,7 @@ const Blog = ({ item }) => {
   )
 }
 
+// definition for Banner component
 const Banner = ({ item }) => {
   const { fields } = item
   const {
